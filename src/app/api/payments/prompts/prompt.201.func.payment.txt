@@ -1,0 +1,37 @@
+==============================================
+
+구현될 ROUTE 경로: src/app/api/payments/route.ts
+
+==============================================
+
+핵심요구사항) 다음의 API를 portone v2을 연동하여 step-by-step 으로 구현하고, 적용 결과를 체크리스트로 반환할 것.
+                1. 상세 구현 정보
+                        1-1) 메서드: POST
+                        1-2) 요청데이터: {
+                                billingKey: string
+                                orderName: string
+                                amount: number
+                                customer: {
+                                        id: string
+                                }
+                        }
+                        1-3) 응답데이터: {
+                                success: boolean
+                        }
+
+                2. 결제시나리오
+                        2-1) billingKey를 사용하여 portone에 결제 요청
+                                - API엔드포인트: https://api.portone.io/payments/${encodeURIComponent(paymentId)}/billing-key
+                                - 바디: {
+                                        billingKey,
+                                        orderName,
+                                        amount: { 
+                                                total 
+                                        },
+                                        customer: { 
+                                                id 
+                                        },
+                                        currency: "KRW",
+                                }
+
+                        2-2) db에 저장하지 않고, 응답 반환

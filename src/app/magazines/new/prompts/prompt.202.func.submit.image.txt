@@ -1,0 +1,25 @@
+==============================================
+
+참고할 PAGE 경로: src/app/magazines/new/page.tsx
+구현될 HOOK 경로: src/app/magazines/new/hooks/index.submit.hook.ts
+
+==============================================
+
+핵심요구사항) 다음의 기능을 supabase를 연동하여 step-by-step 으로 구현하고, 적용 결과를 체크리스트로 반환할 것.
+            1. 등록시나리오
+                1-1) 다음의 데이터를 등록할 것
+                        - 접속키: ANON키
+                        - 테이블명: magazine
+                        - 데이터
+                            - image_url: string
+                                - 버킷명: vibe-coding-storage
+                                - 파일명: yyyy/mm/dd/{UUID}.jpg
+                            - category: string
+                            - title: string
+                            - description: string
+                            - content: string
+                            - tags: string[] | null
+
+                1-2) 등록성공 이후 로직을 완성할 것.
+                        - 알림메시지: "등록에 성공하였습니다."
+                        - 이동할페이지: "/magazines/[id]"

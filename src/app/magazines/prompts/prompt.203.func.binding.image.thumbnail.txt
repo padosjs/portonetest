@@ -1,0 +1,31 @@
+==============================================
+
+참고할 PAGE 경로: src/app/magazines/page.tsx
+구현될 HOOK 경로: src/app/magazines/index.binding.hook.ts
+
+==============================================
+
+핵심요구사항) 다음의 기능을 supabase를 연동하여 step-by-step 으로 구현하고, 적용 결과를 체크리스트로 반환할 것.
+            1. 조회시나리오
+                1-1) 다음의 데이터를 조회할 것.
+                        - 접속키: ANON키
+                        - 테이블명: magazine
+                        - 데이터
+                            - id: uuid
+                            - image_url: string
+                            - category: string
+                            - title: string
+                            - description: string
+                            - tags: string[] | null
+                        - 조건: 10개
+
+                1-2) 조회된 image_url로 사진 다운로드시, 썸네일을 다운로드 할 것.
+                        - 썸네일생성방식: Supabase Image Transformation 기능
+                                => storage의 getPublicUrl 사용할 것
+                        - 버킷명: vibe-coding-storage
+                        - 사이즈: width 323px, resize: contain
+
+                1-3) 조회성공 이후 기존의 mock 데이터를 실제 데이터로 교체할 것.
+
+                1-4) 조회된 컨텐츠를 클릭하면 상세페이지로 이동할 것.
+                        - 이동주소: "/magazines/[id]"

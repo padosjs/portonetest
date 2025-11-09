@@ -1,0 +1,23 @@
+==============================================
+
+참고할 PAGE 경로: src/app/magazines/[id]/page.tsx
+구현될 HOOK 경로: src/app/magazines/[id]/hooks/index.func.binding.ts
+
+==============================================
+
+핵심요구사항) 다음의 기능을 supabase를 연동하여 step-by-step 으로 구현하고, 적용 결과를 체크리스트로 반환할 것.
+            1. 조회시나리오
+                1-1) 다음의 데이터를 조회할 것.
+                        - 접속키: ANON키
+                        - 테이블명: magazine
+                        - 데이터
+                            - id: uuid
+                            - image_url: 무시
+                            - category: string
+                            - title: string
+                            - description: string
+                            - content: string
+                            - tags: string[] | null
+                        - 조건: 다이나믹라우팅으로 추출한 [id]와 일치하는 데이터
+
+                1-2) 조회성공 이후 기존의 mock 데이터를 실제 데이터로 교체할 것.
