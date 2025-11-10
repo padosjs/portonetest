@@ -1,0 +1,59 @@
+==============================================
+
+구현될 ROUTE 경로: src/app/api/portone/route.ts
+
+==============================================
+
+핵심요구사항) 다음의 API를 portone v2을 연동하여 step-by-step 으로 구현하고, 적용 결과를 체크리스트로 반환할 것.
+                1. 상세 구현 정보
+                        1-1) 메서드: POST
+                        1-2) 요청데이터: {
+                                payment_id: string
+                                status: "Paid" | "Cancelled"
+                        }
+                        1-3) 응답데이터: {
+                                success: boolean
+                        }
+
+                2. 구독결제완료시나리오
+                        2-1) paymentId의 결제정보를 조회할 것.
+                                - API엔드포인트: https://api.portone.io/payments/{payment_id}
+                                - 메서드: GET
+                                - 헤더: {
+                                        'Content-Type': 'application/json',
+                                        Authorization: `PortOne ${PORTONE_API_SECRET}`
+                                }
+
+                        2-1) supabase의 테이블에 다음을 등록할 것.
+                                - payment
+                                        - transaction_key: 결제정보.paymentId
+                                        - amount: 결제정보.amount
+                                        - status: "Paid"
+                                        - start_at: 현재시각
+                                        - end_at: 현재시각 + 30일
+                                        - end_grace_at: 현재시각 + 31일
+                                        - next_schedule_at: end_at + 1일 오전 10시~11시 사이 임의 시각
+                                        - next_schedule_id: 임의로 생성한 UUID
+
+                3. 다음달구독예약시나리오
+                        3-1) 포트원에 다음달 구독결제를 예약할 것.
+                                - API엔드포인트: https://api.portone.io/payments/${next_schedule_id}/schedule
+                                - 메서드: POST
+                                - 헤더: {
+                                        'Content-Type': 'application/json',
+                                        Authorization: `PortOne ${PORTONE_API_SECRET}`
+                                },
+                                - 바디: {
+                                        payment: {
+                                                billingKey: 결제정보.billingKey,
+                                                orderName: 결제정보.orderName,
+                                                customer: {
+                                                        id: 결제정보.customer.id
+                                                }
+                                                amount: {
+                                                        total: 결제정보.amount
+                                                },
+                                                currency: "KRW"
+                                        },
+                                        timeToPay: next_schedule_at
+                                };
